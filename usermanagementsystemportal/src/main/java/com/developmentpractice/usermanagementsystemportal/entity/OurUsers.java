@@ -10,7 +10,18 @@ import java.util.Collection;
 import java.util.List;
 
 //create entity as OurUser instaed of User -> we use user from spring security
-// @Data => Getter and Setter
+// @Data is a Lombok annotation that automatically generates getter, setter, toString, equals, and hashCode methods.
+
+// Implementing the UserDetails interface allows the OurUsers class to be used by Spring Security for authentication and authorization.
+
+/*
+* Spring Security uses the UserDetails interface to retrieve user-related data during authentication. By implementing UserDetails,
+* the OurUsers class can be used directly by Spring Security's authentication manager to:
+
+Load user details by username (email in this case).
+Get user authorities (roles or permissions).
+Check account status (enabled, locked, expired).
+This setup integrates the OurUsers entity with Spring Security, allowing for seamless user authentication and authorization.*/
 
 @Entity
 @Table(name = "ourusers")
@@ -39,7 +50,7 @@ public class OurUsers implements UserDetails {
     @Override
     public boolean isAccountNonExpired() {
         //return UserDetails.super.isAccountNonExpired();
-        return true;
+        return true;  //  the account is not expired.
     }
 
     @Override
@@ -51,12 +62,12 @@ public class OurUsers implements UserDetails {
     @Override
     public boolean isCredentialsNonExpired() {
         //return UserDetails.super.isCredentialsNonExpired();
-        return true;
+        return true; // credentials are not expired.
     }
 
     @Override
     public boolean isEnabled() {
         //return UserDetails.super.isEnabled();
-        return true;
+        return true; // user is enabled.
     }
 }
